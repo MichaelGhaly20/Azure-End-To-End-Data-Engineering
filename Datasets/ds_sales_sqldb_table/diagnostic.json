@@ -1,0 +1,24 @@
+{
+    "now": "2025-02-04T18:56:45.464Z",
+    "perfNow": 218103969.4,
+    "diagnosticCorrelation": "31ddf4c6-d5e3-49f3-a8ff-7a982a290fbc",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "adf",
+        "buildVersion": "1.0.012325.2",
+        "environmentType": 3,
+        "resourceName": "adf-azure-mg",
+        "resourceRegion": "eastus",
+        "resourceGroup": "MG_Azure_Project",
+        "subscriptionId": "7ead8a1c-6729-40e4-b5be-a344167903c3",
+        "sessionId": "fkunIIpfljc5WY3Oot3KJq",
+        "operationId": "",
+        "gitType": "live",
+        "loggingKey": "8bf401d8-c394-4050-bcc2-9a06cf34ae59"
+    },
+    "additionalInfo": {
+        "selectedResource": "ds_sales_sqldb_table",
+        "selectedResourceType": "dataset",
+        "dataFlowSessionId": "95ab01f7-88bc-4203-b5c3-632a056d6b20"
+    }
+}

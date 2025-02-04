@@ -1,0 +1,19 @@
+{
+    "name": "df_processed_parquet",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "datalake_link_service",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Parquet",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileSystem": "processed"
+            },
+            "compressionCodec": "snappy"
+        },
+        "schema": []
+    }
+}
