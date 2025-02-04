@@ -1,0 +1,177 @@
+{
+    "name": "ds_sales_blob_csv",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureBlobStorage1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": "enhanced_sales_data.csv",
+                "container": "srcdata"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "Row ID",
+                "type": "String"
+            },
+            {
+                "name": "Order ID",
+                "type": "String"
+            },
+            {
+                "name": "Order Date",
+                "type": "String"
+            },
+            {
+                "name": "Ship Date",
+                "type": "String"
+            },
+            {
+                "name": "Ship Mode",
+                "type": "String"
+            },
+            {
+                "name": "Customer ID",
+                "type": "String"
+            },
+            {
+                "name": "Customer Name",
+                "type": "String"
+            },
+            {
+                "name": "Customer Gender",
+                "type": "String"
+            },
+            {
+                "name": "Customer Age",
+                "type": "String"
+            },
+            {
+                "name": "Customer Loyalty Tier",
+                "type": "String"
+            },
+            {
+                "name": "CLV",
+                "type": "String"
+            },
+            {
+                "name": "Segment",
+                "type": "String"
+            },
+            {
+                "name": "Country",
+                "type": "String"
+            },
+            {
+                "name": "City",
+                "type": "String"
+            },
+            {
+                "name": "State",
+                "type": "String"
+            },
+            {
+                "name": "Postal Code",
+                "type": "String"
+            },
+            {
+                "name": "Latitude",
+                "type": "String"
+            },
+            {
+                "name": "Longitude",
+                "type": "String"
+            },
+            {
+                "name": "Region",
+                "type": "String"
+            },
+            {
+                "name": "Product ID",
+                "type": "String"
+            },
+            {
+                "name": "Category",
+                "type": "String"
+            },
+            {
+                "name": "Sub-Category",
+                "type": "String"
+            },
+            {
+                "name": "Product Name",
+                "type": "String"
+            },
+            {
+                "name": "Sales",
+                "type": "String"
+            },
+            {
+                "name": "Cost",
+                "type": "String"
+            },
+            {
+                "name": "Profit",
+                "type": "String"
+            },
+            {
+                "name": "Quantity",
+                "type": "String"
+            },
+            {
+                "name": "Discount",
+                "type": "String"
+            },
+            {
+                "name": "Manufacturer",
+                "type": "String"
+            },
+            {
+                "name": "Payment Method",
+                "type": "String"
+            },
+            {
+                "name": "Order Priority",
+                "type": "String"
+            },
+            {
+                "name": "Return Status",
+                "type": "String"
+            },
+            {
+                "name": "Return Reason",
+                "type": "String"
+            },
+            {
+                "name": "Shipping Cost",
+                "type": "String"
+            },
+            {
+                "name": "Carrier",
+                "type": "String"
+            },
+            {
+                "name": "Customer Since",
+                "type": "String"
+            },
+            {
+                "name": "Create Date",
+                "type": "String"
+            },
+            {
+                "name": "Modification Date",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}
