@@ -1,0 +1,7 @@
+selected resource name:		pl_processed
+selected resource type:		pipeline
+factory name:			adf-azure-mg
+factory location:		eastus
+subscription id:		7ead8a1c-6729-40e4-b5be-a344167903c3
+data flow session id:		95ab01f7-88bc-4203-b5c3-632a056d6b20
+time of download (UTC):		Tue, 04 Feb 2025 18:56:31 GMT

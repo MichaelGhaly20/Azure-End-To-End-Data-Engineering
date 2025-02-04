@@ -1,0 +1,648 @@
+{
+    "name": "increment_data_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "Copy_Increment_data",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "last_load",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "current_load",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": {
+                            "value": "SELECT * \nFROM sales_src \nWHERE (\n          create_date > '@{activity('last_load').output.value[0].last_load}'\n       OR modification_date > '@{activity('last_load').output.value[0].last_load}')\n  AND (\n          create_date <= '@{activity('current_load').output.value[0].Max_Date}' \n       OR modification_date <= '@{activity('current_load').output.value[0].Max_Date}')",
+                            "type": "Expression"
+                        },
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "sink": {
+                        "type": "ParquetSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "ParquetWriteSettings"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "name": "row_id",
+                                    "type": "Int32",
+                                    "physicalType": "int"
+                                },
+                                "sink": {
+                                    "name": "row_id",
+                                    "type": "Int32",
+                                    "physicalType": "INT_32"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "order_id",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "order_id",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "order_date",
+                                    "type": "DateTime",
+                                    "physicalType": "datetime"
+                                },
+                                "sink": {
+                                    "name": "order_date",
+                                    "type": "DateTime",
+                                    "physicalType": "INT_96"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "ship_date",
+                                    "type": "DateTime",
+                                    "physicalType": "datetime"
+                                },
+                                "sink": {
+                                    "name": "ship_date",
+                                    "type": "DateTime",
+                                    "physicalType": "INT_96"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "ship_mode",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "ship_mode",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_id",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "customer_id",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_name",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "customer_name",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_gender",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "customer_gender",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_age",
+                                    "type": "Int32",
+                                    "physicalType": "int"
+                                },
+                                "sink": {
+                                    "name": "customer_age",
+                                    "type": "Int32",
+                                    "physicalType": "INT_32"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_loyalty_tier",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "customer_loyalty_tier",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "clv",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "clv",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "segment",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "segment",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "country",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "country",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "city",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "city",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "state",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "state",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "postal_code",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "postal_code",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "latitude",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 6,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "latitude",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "longitude",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 6,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "longitude",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "region",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "region",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "product_id",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "product_id",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "category",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "category",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "sub_category",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "sub_category",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "product_name",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "product_name",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "sales",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "sales",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "cost",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "cost",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "profit",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "profit",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "quantity",
+                                    "type": "Int32",
+                                    "physicalType": "int"
+                                },
+                                "sink": {
+                                    "name": "quantity",
+                                    "type": "Int32",
+                                    "physicalType": "INT_32"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "discount",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 3
+                                },
+                                "sink": {
+                                    "name": "discount",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "manufacturer",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "manufacturer",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "payment_method",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "payment_method",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "order_priority",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "order_priority",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "return_status",
+                                    "type": "Boolean",
+                                    "physicalType": "bit"
+                                },
+                                "sink": {
+                                    "name": "return_status",
+                                    "type": "Boolean",
+                                    "physicalType": "BOOLEAN"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "return_reason",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "return_reason",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "shipping_cost",
+                                    "type": "Decimal",
+                                    "physicalType": "decimal",
+                                    "scale": 2,
+                                    "precision": 10
+                                },
+                                "sink": {
+                                    "name": "shipping_cost",
+                                    "type": "Decimal",
+                                    "physicalType": "DECIMAL"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "carrier",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                },
+                                "sink": {
+                                    "name": "carrier",
+                                    "type": "String",
+                                    "physicalType": "UTF8"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_since",
+                                    "type": "DateTime",
+                                    "physicalType": "date"
+                                },
+                                "sink": {
+                                    "name": "customer_since",
+                                    "type": "DateTime",
+                                    "physicalType": "INT_96"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "create_date",
+                                    "type": "DateTime",
+                                    "physicalType": "datetime"
+                                },
+                                "sink": {
+                                    "name": "create_date",
+                                    "type": "DateTime",
+                                    "physicalType": "INT_96"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "modification_date",
+                                    "type": "DateTime",
+                                    "physicalType": "datetime"
+                                },
+                                "sink": {
+                                    "name": "modification_date",
+                                    "type": "DateTime",
+                                    "physicalType": "INT_96"
+                                }
+                            }
+                        ],
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "ds_sales_sqldb_table",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "table_name": "sales_src"
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "ds_bronze",
+                        "type": "DatasetReference"
+                    }
+                ]
+            },
+            {
+                "name": "last_load",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": "select * from water_tbl;",
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ds_sales_sqldb_table",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "table_name": "water_tbl"
+                        }
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "current_load",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": "SELECT \n        MAX(Create_Date) AS Max_Date\n     from [dbo].[sales_src];",
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ds_sales_sqldb_table",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "table_name": "sales_src"
+                        }
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "watermark_update",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Copy_Increment_data",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[UpdateWaterTbl]",
+                    "storedProcedureParameters": {
+                        "lastload": {
+                            "value": {
+                                "value": "@activity('current_load').output.value[0].max_date",
+                                "type": "Expression"
+                            },
+                            "type": "DateTime"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureSqlDatabase_link_service",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2025-01-31T18:33:16Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

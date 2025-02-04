@@ -1,0 +1,17 @@
+{
+    "name": "AzureSqlDatabase_link_service",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureSqlDatabase",
+        "typeProperties": {
+            "server": "dbmgserver.database.windows.net",
+            "database": "db-azure-mg",
+            "encrypt": "mandatory",
+            "trustServerCertificate": false,
+            "authenticationType": "SQL",
+            "userName": "michaeladmin",
+            "encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDQyODc0QTg0LTNCN0ItNDBGNS04QjkxLTIyRjI3OTcxQjU4Ml81MzRjY2JjNy03YmQxLTQxYmItODEyOS04YzkxYjYyNzQ0NDYiDQp9"
+        }
+    }
+}

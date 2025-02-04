@@ -1,0 +1,21 @@
+{
+    "name": "ds_bronze",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "datalake_link_service",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Parquet",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "folderPath": "raw_data",
+                "fileSystem": "bronze"
+            },
+            "compressionCodec": "snappy"
+        },
+        "schema": []
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

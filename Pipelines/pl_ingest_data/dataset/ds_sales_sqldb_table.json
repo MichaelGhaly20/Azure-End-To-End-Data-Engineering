@@ -1,0 +1,119 @@
+{
+    "name": "ds_sales_sqldb_table",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureSqlDatabase_link_service",
+            "type": "LinkedServiceReference"
+        },
+        "parameters": {
+            "table_name": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "AzureSqlTable",
+        "schema": [
+            {
+                "name": "Row_ID",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "Order_ID",
+                "type": "varchar"
+            },
+            {
+                "name": "Order_Date",
+                "type": "date"
+            },
+            {
+                "name": "Ship_Date",
+                "type": "date"
+            },
+            {
+                "name": "Ship_Mode",
+                "type": "varchar"
+            },
+            {
+                "name": "Customer_ID",
+                "type": "varchar"
+            },
+            {
+                "name": "Customer_Name",
+                "type": "varchar"
+            },
+            {
+                "name": "Segment",
+                "type": "varchar"
+            },
+            {
+                "name": "Country",
+                "type": "varchar"
+            },
+            {
+                "name": "City",
+                "type": "varchar"
+            },
+            {
+                "name": "State",
+                "type": "varchar"
+            },
+            {
+                "name": "Postal_Code",
+                "type": "varchar"
+            },
+            {
+                "name": "Region",
+                "type": "varchar"
+            },
+            {
+                "name": "Product_ID",
+                "type": "varchar"
+            },
+            {
+                "name": "Category",
+                "type": "varchar"
+            },
+            {
+                "name": "Sub_Category",
+                "type": "varchar"
+            },
+            {
+                "name": "Product_Name",
+                "type": "varchar"
+            },
+            {
+                "name": "Sales",
+                "type": "decimal",
+                "precision": 10,
+                "scale": 2
+            },
+            {
+                "name": "Create_Date",
+                "type": "datetime",
+                "precision": 23,
+                "scale": 3
+            },
+            {
+                "name": "Creation_Date",
+                "type": "datetime",
+                "precision": 23,
+                "scale": 3
+            },
+            {
+                "name": "Modification_Date",
+                "type": "datetime",
+                "precision": 23,
+                "scale": 3
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": {
+                "value": "@dataset().table_name",
+                "type": "Expression"
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}
