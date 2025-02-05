@@ -10,7 +10,8 @@ The pipeline processes 10 million rows of synthetic sales data, transforming it 
 
 ## Architecture
 
-![System Architecture](https://github.com/user-attachments/assets/bceb5bfb-8a5d-4af6-9e37-1712d3065a53)
+![System Architecture](https://github.com/user-attachments/assets/bb66379b-cad9-40e5-820c-ad66186d6843)
+
 
 
 - **Data Sources**:  
